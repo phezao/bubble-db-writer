@@ -1,0 +1,9 @@
+# Ignore .env file containing credentials.
+.env
+
+.byebug_history
+
+schemas
+
+schema.json
+schema.rb
