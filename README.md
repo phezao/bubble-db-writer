@@ -1,5 +1,9 @@
 # Migrating the Bubble Database to Postgres
 
+This project was created to write the tables from an existing Bubble.io app to PostgreSQL database, using Ruby. This project requires some gems like dotenv, httparty, rspec. Keep in mind that this won't perform the associations and also simplified some data types from some of the tables, just so we could quickly build the tables to start playing around.
+
+The process is broken in a couple of steps, that follows:
+
 ## 1. importing all table names
 
 Go to the App -> Settings -> API and open the console and do this:
