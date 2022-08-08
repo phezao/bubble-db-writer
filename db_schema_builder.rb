@@ -35,4 +35,4 @@ class DbSchemaBuilder
   end
 end
 
-DbSchemaBuilder.new.enviroment
+DbSchemaBuilder.new.call

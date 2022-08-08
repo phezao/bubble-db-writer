@@ -3,13 +3,10 @@
 require_relative './../bubble_table_fetcher'
 
 RSpec.describe BubbleTableFetcher do
-  # describe '#make_api_call' do
-  #   subject { described_class.new.make_api_call('ratings') }
-  #   it 'is expected to return status code 200' do
-  #     expect(subject.code).to be 200
-  #   end
-  # end
-
+  describe '#call' do
+    it 'returns a hash with keys as the table columns and values as the data type'
+    it 'returns the data type corresponded to the value'
+  end
   describe '#analyze_response_data_types' do
     hash = {
       'Address (SEARCHBOX)' => { 'address' => 'R. da Feira 250, 4700 Braga, Portugal', 'lat' => 41.5562175,

@@ -1,33 +1,18 @@
 # frozen_string_literal: true
 
-require 'httparty'
-require 'dotenv'
-
-Dotenv.load
+require './bubble_api_service'
 
 # class BubbleTableFetcher
 class BubbleTableFetcher
-  attr_reader :body
-
   def initialize
-    @bubble_endpoint = ENV['API_ENDPOINT']
+    @bubble_api = BubbleApiService.new
   end
 
   def call(name)
-    response = make_api_call(name)
-    analyze_response_data_types(extract_api_response(response))
+    analyze_response_data_types(@bubble_api.call(name, 1).first)
   end
 
   private
-
-  def make_api_call(name)
-    HTTParty.get("#{@bubble_endpoint}/#{name}?limit=1",
-                 headers: { 'Authorization' => "Bearer #{ENV['BUBBLE_API_KEY']}" })
-  end
-
-  def extract_api_response(response)
-    response['response']['results'][0].nil? ? { "error: #{response}": '_id' } : response['response']['results'][0]
-  end
 
   def analyze_response_data_types(response)
     response_data_type = {}

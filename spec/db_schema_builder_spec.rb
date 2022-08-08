@@ -5,8 +5,6 @@ require_relative './../tables_name_source'
 
 RSpec.describe DbSchemaBuilder do
   describe '.new' do
-    it { is_expected.to be_a(described_class) }
-
     context '#schema' do
       subject { described_class.new.schema }
       it { is_expected.to be_empty }
@@ -16,7 +14,6 @@ RSpec.describe DbSchemaBuilder do
   describe '#table_names' do
     subject { described_class.new.table_names }
 
-    it { is_expected.to be_a(Array) }
     it { is_expected.to eql(TABLE_NAMES) }
   end
 
