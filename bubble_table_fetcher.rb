@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require './bubble_api_service'
-
 # class BubbleTableFetcher
 class BubbleTableFetcher
-  def initialize
-    @bubble_api = BubbleApiService.new
+  def initialize(bubble_api_service)
+    @bubble_api = bubble_api_service
   end
 
   def call(name)

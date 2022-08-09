@@ -1,30 +1,21 @@
 # frozen_string_literal: true
 
-require 'pg'
-require 'dotenv'
 require './schema'
-
-Dotenv.load
 
 # class DbTableWriter
 class DbTableWriter
   attr_reader :schema
 
-  def initialize
-    @schema = SCHEMA
-    @pg = PG.connect(
-      host: ENV['DB_HOST'],
-      dbname: ENV['DB_NAME'],
-      port: ENV['DB_PORT'],
-      user: ENV['DB_USER'],
-      password: ENV['DB_PASSWORD']
-    )
+  def initialize(schema, pg_service)
+    @schema = schema
+    @pg = pg_service
   end
 
   def call
-    @schema.each do |table|
+    @schema.map do |table|
       sql_query = build_sql_query(table)
       @pg.exec(sql_query)
+      sql_query
     end
   end
 
@@ -41,4 +32,6 @@ class DbTableWriter
   end
 end
 
-DbTableWriter.new.call
+# pg_service = PgService.new
+
+# DbTableWriter.new(SCHEMA, pg_service).call

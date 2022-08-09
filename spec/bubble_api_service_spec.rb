@@ -22,10 +22,4 @@ RSpec.describe BubbleApiService do
       end
     end
   end
-  # describe '#make_api_call' do
-  #   subject { described_class.new.make_api_call('ratings') }
-  #   it 'is expected to return status code 200' do
-  #     expect(subject.code).to be 200
-  #   end
-  # end
 end
