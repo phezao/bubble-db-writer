@@ -1,21 +1,31 @@
 # frozen_string_literal: true
 
+require 'pg'
+require 'dotenv'
 require './schema'
 require './pg_service'
 
+Dotenv.load
 # class DbTableWriter
 class DbTableWriter
   attr_reader :schema
 
   def initialize(schema, pg_service)
     @schema = schema
-    @pg = pg_service
+    @pg = PG.connect(
+      host: ENV['DB_HOST'],
+      dbname: ENV['DB_NAME'],
+      port: ENV['DB_PORT'],
+      user: ENV['DB_USER'],
+      password: ENV['DB_PASSWORD']
+    )
+    @pg_service = pg_service
   end
 
   def call
     @schema.map do |table|
       sql_query = build_sql_query(table)
-      @pg.exec(sql_query)
+      @pg_service.exec(sql_query)
       sql_query
     end
   end
@@ -23,13 +33,13 @@ class DbTableWriter
   private
 
   def build_sql_query(table)
-    query = ['id SERIAL PRIMARY KEY']
+    query = ['id uuid DEFAULT gen_random_uuid () PRIMARY KEY']
     table[:body].each { |key, value| query << "\"#{key}\" #{value}" }
-    <<-SQL
-        CREATE TABLE \"#{table[:name]}\" (
-          #{query.join(', ')}
-        );
-    SQL
+    "
+      CREATE TABLE \"#{table[:name]}\" (
+        #{query.join(', ')}
+      );
+    "
   end
 end
 
