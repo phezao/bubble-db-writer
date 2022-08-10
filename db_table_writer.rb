@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './schema'
+require './pg_service'
 
 # class DbTableWriter
 class DbTableWriter
@@ -32,6 +33,6 @@ class DbTableWriter
   end
 end
 
-# pg_service = PgService.new
+pg_service = PgService.new
 
-# DbTableWriter.new(SCHEMA, pg_service).call
+DbTableWriter.new(SCHEMA, pg_service).call

@@ -51,7 +51,7 @@ class DbSchemaBuilder
   end
 end
 
-# bubble_api_service = BubbleApiService.new
-# bubble_table_fetcher = BubbleTableFetcher.new(bubble_api_service)
+bubble_api_service = BubbleApiService.new
+bubble_table_fetcher = BubbleTableFetcher.new(bubble_api_service)
 
-# DbSchemaBuilder.new(bubble_table_fetcher, TABLE_NAMES).call
+DbSchemaBuilder.new(bubble_table_fetcher, TABLE_NAMES).call

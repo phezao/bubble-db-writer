@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './bubble_api_service'
+require './pg_service'
 require './tables_name_source'
 require 'byebug'
 
@@ -43,7 +44,7 @@ class TableSingleAssociator
   end
 end
 
-# bubble_api_service = BubbleApiService.new
-# pg_service = PgService.new
+bubble_api_service = BubbleApiService.new
+pg_service = PgService.new
 
-# TableSingleAssociator.new(bubble_api_service, TABLE_NAMES, pg_service).call
+TableSingleAssociator.new(bubble_api_service, TABLE_NAMES, pg_service).call
