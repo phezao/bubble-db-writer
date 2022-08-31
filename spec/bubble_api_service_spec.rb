@@ -6,13 +6,13 @@ RSpec.describe BubbleApiService do
   describe '#call' do
     context 'with two arguments ("Shift", 5)' do
       it 'returns an array of data with length of 5' do
-        expect(subject.call('Shift', 5).length).to eq(5)
+        expect(subject.call('Shift', 5)['results'].length).to eq(5)
       end
     end
 
     context 'with only one argument/name ("Shift")' do
-      it 'returns an array a single data point' do
-        expect(subject.call('Shift').length).to eq(1)
+      it 'returns an array of a single data point' do
+        expect(subject.call('Shift')['results'].length).to eq(1)
       end
     end
 

@@ -11,18 +11,18 @@ class BubbleApiService
     @bubble_endpoint = ENV['API_ENDPOINT']
   end
 
-  def call(name, limit = 1)
-    extract_api_response(make_api_call(name, limit))
+  def call(name, limit = 1, cursor = 0)
+    extract_api_response(make_api_call(name, limit, cursor))
   end
 
   private
 
-  def make_api_call(name, limit)
-    HTTParty.get("#{@bubble_endpoint}/#{name}?limit=#{limit}&sort_field=Created%20Date&descending=true",
+  def make_api_call(name, limit = 1, cursor = 0)
+    HTTParty.get("#{@bubble_endpoint}/#{name.downcase.gsub(' ', '')}?limit=#{limit}&cursor=#{cursor}&sort_field=Created%20Date&descending=true",
                  headers: { 'Authorization' => "Bearer #{ENV['BUBBLE_API_KEY']}" })
   end
 
   def extract_api_response(response)
-    response['response']['results'][0].nil? ? { "error: table is empty": '_id' } : response['response']['results']
+    response['response']['results'][0].nil? ? { 'results' => [{ "error: table is empty": '_id' }] }.transform_keys(&:to_s) : response['response']
   end
 end
