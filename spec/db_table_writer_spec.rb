@@ -12,7 +12,7 @@ RSpec.describe DbTableWriter do
         queries = described_class.new(schema, pg_instance).call.first
         query_expected = <<~SQL
           CREATE TABLE "Company" (
-            id SERIAL PRIMARY KEY,
+            id uuid DEFAULT gen_random_uuid () PRIMARY KEY,
             "name" TEXT
           );
         SQL

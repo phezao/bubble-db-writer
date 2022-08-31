@@ -12,13 +12,6 @@ class DbTableWriter
 
   def initialize(schema, pg_service)
     @schema = schema
-    @pg = PG.connect(
-      host: ENV['DB_HOST'],
-      dbname: ENV['DB_NAME'],
-      port: ENV['DB_PORT'],
-      user: ENV['DB_USER'],
-      password: ENV['DB_PASSWORD']
-    )
     @pg_service = pg_service
   end
 
@@ -43,6 +36,6 @@ class DbTableWriter
   end
 end
 
-pg_service = PgService.new
+# pg_service = PgService.new
 
-DbTableWriter.new(SCHEMA, pg_service).call
+# DbTableWriter.new(SCHEMA, pg_service).call
