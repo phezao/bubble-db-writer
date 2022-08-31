@@ -7,6 +7,8 @@ require 'byebug'
 
 # class TableSingleAssociator
 class TableSingleAssociator
+  attr_reader :queries
+
   def initialize(bubble_api_service, table_names, pg_service)
     @bubble_api = bubble_api_service
     @table_names = table_names
@@ -16,17 +18,30 @@ class TableSingleAssociator
 
   def call
     @table_names.each do |name|
-      string_table_columns = @bubble_api.call(name.downcase.gsub(' ', '')).first.select { |_k, v| v.is_a? String }
+      string_table_columns = get_string_columns(name)
+      next unless string_table_columns
+
       bubble_id_matcher(name, string_table_columns)
     end
     @queries
   end
 
-  private
+  def get_string_columns(name)
+    response = @bubble_api.call(name.downcase.gsub(' ', ''))['results'].first.select do |_k, v|
+      v.is_a? String
+    end
+
+    return nil if response.keys.include?(:"error: table is empty")
+
+    response
+  end
 
   def bubble_id_matcher(table, record)
-    record.each do |key, value|
-      insert_foreign_key(table, key) if value.match?(/\d{13}x\d{18}/) && key != '_id' && key != 'Created By'
+    record.map do |key, value|
+      if value.match?(/\A\d{13}x\d{18}\z/) && key != '_id' && key != 'Created By'
+        insert_foreign_key(table,
+                           key)
+      end
     end
   end
 
@@ -38,13 +53,13 @@ class TableSingleAssociator
 
   def build_query(table, column)
     <<-SQL
-      ALTER TABLE \"#{table}\" ADD COLUMN #{column.downcase}_id INT
+      ALTER TABLE \"#{table}\" ADD COLUMN \"#{column.downcase}_id\" uuid
       REFERENCES \"#{column}\";
     SQL
   end
 end
 
-bubble_api_service = BubbleApiService.new
-pg_service = PgService.new
+# bubble_api_service = BubbleApiService.new
+# pg_service = PgService.new
 
-TableSingleAssociator.new(bubble_api_service, TABLE_NAMES, pg_service).call
+# TableSingleAssociator.new(bubble_api_service, TABLE_NAMES, pg_service).call
