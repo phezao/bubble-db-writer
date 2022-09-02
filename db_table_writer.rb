@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-require 'pg'
-require 'dotenv'
 require './schema'
 require './pg_service'
 
-Dotenv.load
 # class DbTableWriter
 class DbTableWriter
   attr_reader :schema
