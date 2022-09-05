@@ -46,15 +46,4 @@ RSpec.describe SingleAssociationPopulator do
       end
     end
   end
-  # connect to pg_service
-  # send query to check if there's foreign_key constraint
-  # SELECT TABLE_NAME, CONSTRAINT_TYPE, CONSTRAINT_NAME
-  # FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
-  # WHERE TABLE_NAME = \'#{table_name}\'
-  # if the constraint exists, then execute the query to make association
-  # UPDATE #{table_name}
-  # SET other_table_name_id = "Other Table".id
-  # FROM "Other Table"
-  # WHERE "Other Table".bubble_id = #{table_name}."Other Table"
-  # if doesn't exist go to the next table
 end

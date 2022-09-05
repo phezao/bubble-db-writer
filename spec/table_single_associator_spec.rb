@@ -62,7 +62,7 @@ RSpec.describe TableSingleAssociator do
       query = table_single_associator.build_query('ShiftCandidate', 'Shift')
 
       final_query = <<-SQL
-      ALTER TABLE "ShiftCandidate" ADD COLUMN shift_id uuid
+      ALTER TABLE "ShiftCandidate" ADD COLUMN "shift_id" uuid
       REFERENCES "Shift";
       SQL
 
@@ -78,7 +78,7 @@ RSpec.describe TableSingleAssociator do
         allow(pg_service).to receive(:exec)
         table_single_associator = described_class.new(bubble_api_service, table_name, pg_service).call.first
         query_expected = <<-SQL
-          ALTER TABLE "Company Service 2.0" ADD COLUMN company_id uuid
+          ALTER TABLE "Company Service 2.0" ADD COLUMN "company_id" uuid
           REFERENCES "Company";
         SQL
 

@@ -27,15 +27,17 @@ class PostgrePopulator
   def write_entries(table_name, cursor = 0)
     response = @bubble_api_service.call(table_name, 100, cursor)
     response['results'].each do |record|
-      # record.reject! { |k, _v| k == 'SignUpState' }
-      query = <<-SQL
-      INSERT INTO \"#{table_name}\" (#{rename_id_to_bubble_id(record.keys).join(', ')})
-      VALUES (#{convert_data(record.values).join(', ')})
-      SQL
-      # puts query
+      query = build_query(table_name, record)
       @pg_service.exec(query)
     end
     response['remaining']
+  end
+
+  def build_query(table_name, record)
+    <<-SQL
+      INSERT INTO \"#{table_name}\" (#{rename_id_to_bubble_id(record.keys).join(', ')})
+      VALUES (#{convert_data(record.values).join(', ')})
+    SQL
   end
 
   def rename_id_to_bubble_id(array)
@@ -59,12 +61,12 @@ class PostgrePopulator
   end
 end
 
-pg_service = PgService.new
+# pg_service = PgService.new
 
-bubble_api_service = BubbleApiService.new
+# bubble_api_service = BubbleApiService.new
 
-populator = PostgrePopulator.new(bubble_api_service, pg_service)
+# populator = PostgrePopulator.new(bubble_api_service, pg_service)
 
-TABLE_NAMES.each do |table_name|
-  populator.call(table_name)
-end
+# TABLE_NAMES.each do |table_name|
+#   populator.call(table_name)
+# end
