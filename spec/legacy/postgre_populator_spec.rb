@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative './../postgre_populator'
+require 'legacy/postgre_populator'
 
 RSpec.describe PostgrePopulator do
   describe '#write_entries' do
-    it 'returns the remaining number of entries' do
+    xit 'returns the remaining number of entries' do
       bubble_api_service = double
       allow(bubble_api_service).to receive(:call).and_return({ results: [1, 2, 3],
                                                                remaining: 300 }.transform_keys(&:to_s))
@@ -18,7 +18,7 @@ RSpec.describe PostgrePopulator do
   end
 
   describe '#build_query' do
-    it 'returns an SQL query to insert the data to the table' do
+    xit 'returns an SQL query to insert the data to the table' do
       bubble_api_service = double
       pg_service = double
       populator = described_class.new(bubble_api_service, pg_service)
@@ -36,7 +36,7 @@ RSpec.describe PostgrePopulator do
   end
 
   describe '#rename_id_to_bubble_id' do
-    it 'returns the record with bubble_id instead of _id' do
+    xit 'returns the record with bubble_id instead of _id' do
       bubble_api_service = double
       pg_service = double
       populator = described_class.new(bubble_api_service, pg_service)
@@ -47,7 +47,7 @@ RSpec.describe PostgrePopulator do
   end
 
   describe '#convert_data' do
-    it 'iterates through all the elements and executes the #check_data_type' do
+    xit 'iterates through all the elements and executes the #check_data_type' do
       bubble_api_service = double
       pg_service = double
       populator = described_class.new(bubble_api_service, pg_service)
@@ -59,7 +59,7 @@ RSpec.describe PostgrePopulator do
   end
 
   describe '#check_data_type' do
-    it 'returns the correct format of the value depending of the data type' do
+    xit 'returns the correct format of the value depending of the data type' do
       bubble_api_service = double
       pg_service = double
       populator = described_class.new(bubble_api_service, pg_service)
@@ -71,7 +71,7 @@ RSpec.describe PostgrePopulator do
 
   describe '#call' do
     context 'when write_entries returns a positive integer of remaining entries' do
-      it 'keeps looping until write_entries returns 0' do
+      xit 'keeps looping until write_entries returns 0' do
         bubble_api_service = double
         pg_service = double
         populator = described_class.new(bubble_api_service, pg_service)
@@ -82,7 +82,7 @@ RSpec.describe PostgrePopulator do
     end
 
     context 'when write_entries returns 0 of remaining entries' do
-      it 'stops the execution' do
+      xit 'stops the execution' do
         bubble_api_service = double
         pg_service = double
         populator = described_class.new(bubble_api_service, pg_service)

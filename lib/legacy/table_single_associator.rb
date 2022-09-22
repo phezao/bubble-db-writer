@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require './bubble_api_service'
-require './pg_service'
-require './tables_name_source'
 require 'byebug'
 
 # class TableSingleAssociator is responsible to create associations 1-to-1 and 1-to-many checking for fields that have a bubble_id

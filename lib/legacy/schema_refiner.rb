@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require './pg_service'
-require './bubble_api_service'
-require './tables_name_source'
-
 # class SchemaRefiner is responsible to update the postgre db schema based by fetching records from Bubble
 class SchemaRefiner
   def initialize(table_names, bubble_api_service, pg_service, schema)

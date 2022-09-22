@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require './tables_name_source'
-require './bubble_table_fetcher'
-require './bubble_api_service'
-require './exporter_service'
-
 # class DbSchemaBuilder
 class DbSchemaBuilder
   attr_reader :table_names, :schema

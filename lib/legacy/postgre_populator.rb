@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'json'
-require './bubble_api_service'
-require './pg_service'
-require './tables_name_source'
 
 # class PostgrePopulator
 class PostgrePopulator
