@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './schema'
-
 # class SchemaCleaner
 class SchemaCleaner
   def initialize(schema)
@@ -14,5 +12,3 @@ class SchemaCleaner
     File.write('schema.rb', @schema)
   end
 end
-
-SchemaCleaner.new(SCHEMA).clean
