@@ -5,26 +5,25 @@ require './pg_service'
 require './tables_name_source'
 require 'byebug'
 
-# class TableSingleAssociator
+# class TableSingleAssociator is responsible to create associations 1-to-1 and 1-to-many checking for fields that have a bubble_id
 class TableSingleAssociator
   attr_reader :queries
 
-  def initialize(bubble_api_service, table_names, pg_service)
+  def initialize(bubble_api_service, pg_service)
     @bubble_api = bubble_api_service
-    @table_names = table_names
     @pg = pg_service
     @queries = []
   end
 
-  def call
-    @table_names.each do |name|
-      string_table_columns = get_string_columns(name)
-      next unless string_table_columns
+  def call(name)
+    string_table_columns = get_string_columns(name)
+    return unless string_table_columns
 
-      bubble_id_matcher(name, string_table_columns)
-    end
+    bubble_id_matcher(name, string_table_columns)
     @queries
   end
+
+  private
 
   def get_string_columns(name)
     response = @bubble_api.call(name.downcase.gsub(' ', ''))['results'].first.select do |_k, v|
@@ -53,13 +52,8 @@ class TableSingleAssociator
 
   def build_query(table, column)
     <<-SQL
-      ALTER TABLE \"#{table}\" ADD COLUMN \"#{column.downcase}_id\" uuid
-      REFERENCES \"#{column}\";
+        ALTER TABLE \"#{table}\" ADD COLUMN \"#{column.downcase}_id\" uuid
+        REFERENCES \"#{column}\";
     SQL
   end
 end
-
-# bubble_api_service = BubbleApiService.new
-# pg_service = PgService.new
-
-# TableSingleAssociator.new(bubble_api_service, TABLE_NAMES, pg_service).call

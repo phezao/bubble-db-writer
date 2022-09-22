@@ -60,13 +60,3 @@ class PostgrePopulator
     return "\'#{value.gsub(/'/, ' ').gsub(/"/, '*')}\'" if value.match?(/\d{13}x\d{18}/) || value.instance_of?(String)
   end
 end
-
-# pg_service = PgService.new
-
-# bubble_api_service = BubbleApiService.new
-
-# populator = PostgrePopulator.new(bubble_api_service, pg_service)
-
-# TABLE_NAMES.each do |table_name|
-#   populator.call(table_name)
-# end

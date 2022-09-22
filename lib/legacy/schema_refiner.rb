@@ -3,9 +3,8 @@
 require './pg_service'
 require './bubble_api_service'
 require './tables_name_source'
-require './schema'
 
-# class SchemaRefiner
+# class SchemaRefiner is responsible to update the postgre db schema based by fetching records from Bubble
 class SchemaRefiner
   def initialize(table_names, bubble_api_service, pg_service, schema)
     @table_names = table_names
@@ -18,7 +17,7 @@ class SchemaRefiner
     @table_names.each do |table_name|
       schema = find_schema(table_name)
       response = fetch(table_name)
-      response.each do |record|
+      response['results'].each do |record|
         compare_record(record, schema, table_name)
       end
     end
@@ -35,8 +34,7 @@ class SchemaRefiner
 
       update_schema(name, value, schema)
       query = build_query(table_name, name, value)
-      puts query
-      # @pg_service.exec(query)
+      @pg_service.exec(query)
     end.compact
   end
 
@@ -66,9 +64,3 @@ class SchemaRefiner
     return 'TEXT' if value.match?(/\d{13}x\d{18}/) || value.instance_of?(String)
   end
 end
-
-bubble_api_service = BubbleApiService.new
-pg_service = PgService.new
-
-schema_refiner = SchemaRefiner.new(TABLE_NAMES, bubble_api_service, pg_service, SCHEMA)
-schema_refiner.call

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require './schema'
-require './pg_service'
+require_relative './pg_service'
 
 # class DbTableWriter
 class DbTableWriter
