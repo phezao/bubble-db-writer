@@ -35,7 +35,7 @@ module BubbleRuby
 
         context "when the bubble_record id doesn't match the record id" do
           it 'returns the remaining number of entries' do
-            allow(bubble_api_service).to receive(:call).and_return(response)
+            allow(bubble_api_service).to receive(:fetch_records).and_return(response)
             db_record = { 'bubble_id' => '1662394570774x102008455749389380',
                           'Created Date' => '2022-08-30T16:16:12.360Z' }
             allow(populator).to receive(:populate_db).and_return('test')

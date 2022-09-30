@@ -38,7 +38,7 @@ module BubbleRuby
     end
 
     def fetch_records_from_bubble(table_name, cursor)
-      @bubble_api_service.call(table_name, 100, cursor)
+      @bubble_api_service.fetch_records(table_name, 100, cursor)
     end
 
     def populate_db(bubble_record, table_name)

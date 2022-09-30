@@ -94,5 +94,46 @@ module BubbleRuby
         REFERENCES \"#{column}\";
       SQL
     end
+
+    # Queries for PostgreDataUpdater
+    def build_fetch_records_from_db_desc_query(table_name)
+      <<-SQL
+        SELECT * FROM \"#{table_name}\"
+        WHERE "Created Date" IS NOT NULL
+        ORDER BY "Created Date" DESC;
+      SQL
+    end
+
+    def build_fetch_numbered_records_from_db_desc_query(table_name, limit)
+      <<-SQL
+        SELECT * FROM \"#{table_name}\"
+        WHERE "Created Date" IS NOT NULL
+        ORDER BY "Created Date" DESC LIMIT #{limit};
+      SQL
+    end
+
+    def build_update_record_query(table_name, column_name, column_value, bubble_id, bubble_data_type)
+      if bubble_data_type.is_a?(Hash)
+        <<-SQL
+          UPDATE \"#{table_name}\"
+          SET \"#{column_name}\" = #{column_value}
+          WHERE bubble_id = \'#{bubble_id}\'
+        SQL
+      else
+        <<-SQL
+          UPDATE \"#{table_name}\"
+          SET \"#{column_name}\" = \'#{column_value}\'
+          WHERE bubble_id = \'#{bubble_id}\'
+        SQL
+      end
+    end
+
+    # Query for UpdateColumnTypeService
+    def build_update_column_type(table_name, column_name, column_type)
+      <<-SQL
+        ALTER TABLE \"#{table_name}\"
+        ALTER COLUMN \"#{column_name}\" TYPE #{column_type};
+      SQL
+    end
   end
 end
