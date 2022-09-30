@@ -21,5 +21,24 @@ module BubbleRuby
       return 'BOOLEAN' if value['type'] == 'boolean'
       return 'TEXT ARRAY' if value['type'] == 'array'
     end
+
+    def check_data_type_and_return_converted_value(original_value, value_to_convert)
+      return value_to_convert.to_i if original_value.instance_of?(Integer)
+      return true if original_value.is_a?(TrueClass)
+      return false if original_value.is_a?(FalseClass)
+      return value_to_convert.to_f if original_value.is_a?(Float)
+
+      if original_value.is_a?(Array) && !value_to_convert.nil?
+        return value_to_convert.gsub('{', '').gsub('}',
+                                                   '').split(',')
+      end
+      return JSON.parse(value_to_convert.gsub(/\*/, '"')) if original_value.is_a?(Hash) && !value_to_convert.nil?
+      return value_to_convert if original_value.nil? || value_to_convert.nil?
+      if original_value.is_a?(String) && original_value.match?(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/)
+        return DateTime.parse(value_to_convert)
+      end
+
+      value_to_convert
+    end
   end
 end

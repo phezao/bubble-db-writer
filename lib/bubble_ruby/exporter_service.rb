@@ -3,7 +3,7 @@
 require 'json'
 
 module BubbleRuby
-  # class ExporterService
+  # class ExporterService is responsible to export a file as json and rb
   class ExporterService
     def write(filename, data)
       if Dir.children('./').include?(filename)
