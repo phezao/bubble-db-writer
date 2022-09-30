@@ -34,11 +34,7 @@ table_single_associator = BubbleRuby::TableSingleAssociator.new(table_names)
 data_updater = BubbleRuby::PostgreDataUpdater.new(bubble_api_service)
 
 table_names.each do |table_name|
-  next if ['oldnotifications', 'notifications2.0', 'visualisations',
-           'oldcertificates'].include?(table_name) || table_name.match?(/\Amb_/) || table_name.match?(/\Aold/)
-
   puts "Starting with #{table_name}..."
-  # se quiser trocar a quantidade de records para atualizar, basta mudar o número no updater. Se retirar o número vai atualizar todos os records
   data_updater.call(table_name, 500)
   populator.call(table_name)
   table_single_associator.call(table_name)

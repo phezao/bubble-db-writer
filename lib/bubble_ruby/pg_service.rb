@@ -6,7 +6,7 @@ require 'dotenv'
 Dotenv.load
 
 module BubbleRuby
-  # class PgService
+  # class PgService is a PG instance to execute PostgreSQL queries
   class PgService
     def initialize
       @pg = PG.connect(

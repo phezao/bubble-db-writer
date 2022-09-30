@@ -4,6 +4,7 @@ require_relative 'query_builder'
 require 'byebug'
 
 module BubbleRuby
+  # class UpdateColumnTypeService is responsible to update the column_type from integer to float8 as bubble doesn't use integers, only floats
   class UpdateColumnTypeService
     include QueryBuilder
 

@@ -5,7 +5,7 @@ require_relative 'data_type_checker'
 require 'byebug'
 
 module BubbleRuby
-  # class PostgreDataUpdater is responsible to update the data from each table if there was any modification
+  # class PostgreDataUpdater is responsible to update the data from each table if there was any modification. The optional argument (limit) allows you to limit the number of records you want to update
   class PostgreDataUpdater
     include QueryBuilder
     include DataTypeChecker
@@ -80,10 +80,3 @@ module BubbleRuby
     end
   end
 end
-
-# Problema: Quando rodamos a db_rountine_tasks ele está colocando dados novos mas não está atualizando os dados passados de cada uma das tables
-# Vamos receber a table_name como argumento
-# Vou pegar os records da DB Postgresql em ordem decrescente por data, pegar o bubble_id e fazer fetch no Bubble
-# pegar o resultado e comparar os campos
-# Se forem diferentes, atualizar os campos
-# Se forem iguais pular para o próximo record

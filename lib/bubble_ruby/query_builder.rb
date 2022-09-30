@@ -1,6 +1,7 @@
 require_relative 'pg_service'
 
 module BubbleRuby
+  # module Query builder contains all the queries used in each of the BubbleRuby objects
   module QueryBuilder
     PG = PgService.new
 

@@ -4,7 +4,7 @@ require_relative 'query_builder'
 require 'byebug'
 
 module BubbleRuby
-  # class SingleAssociationPopulator
+  # class SingleAssociationPopulator is responsible to populate the existing one-to-one or one-to-many relationships
   class SingleAssociationPopulator
     include BubbleRuby::QueryBuilder
 
