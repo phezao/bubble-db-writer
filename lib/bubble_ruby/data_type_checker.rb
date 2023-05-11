@@ -13,15 +13,6 @@ module BubbleRuby
       return "\'#{value.gsub(/'/, ' ').gsub(/"/, '%')}\'" if value.match?(/\d{13}x\d{18}/) || value.instance_of?(String)
     end
 
-    def check_data_type_and_return_postgre_type(value)
-      return 'JSON' if value.keys.include?('$ref')
-      return 'TIMESTAMPTZ' if value.keys.include?('format') && value['format'] == 'date-time'
-      return 'TEXT' if value['type'] == 'string' || value['type'] == 'option set'
-      return 'FLOAT8' if value['type'] == 'number'
-      return 'BOOLEAN' if value['type'] == 'boolean'
-      return 'TEXT ARRAY' if value['type'] == 'array'
-    end
-
     def check_data_type_and_return_converted_value(original_value, value_to_convert)
       return value_to_convert.to_i if original_value.instance_of?(Integer)
       return true if original_value.is_a?(TrueClass)
