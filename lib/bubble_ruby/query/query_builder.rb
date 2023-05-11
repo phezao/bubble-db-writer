@@ -38,7 +38,7 @@ module BubbleRuby
     end
 
     # Queries for TableSingleAssociator
-    def build_check_record_query(table_name, column_name)
+    def build_check_any_record_query(table_name, column_name)
       <<-SQL
         SELECT * FROM \"#{table_name}\"
         WHERE \"#{column_name}\" IS NOT NULL
