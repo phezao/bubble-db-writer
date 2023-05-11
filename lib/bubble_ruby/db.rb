@@ -4,6 +4,8 @@ module BubbleRuby
   class DB
     require_relative 'db/schema'
 
+    attr_reader :endpoint, :schema
+
     def initialize(swagger_endpoint:)
       self.endpoint = swagger_endpoint
       self.schema   = nil
@@ -16,7 +18,7 @@ module BubbleRuby
     alias update create
 
     def migrate
-      !schema.nil? or raise StandardError, 'Schema not yet created or imported'
+      !schema.nil? or raise StandardError, 'Schema not yet created or imported, run #create'
 
       schema.migrate
     end
@@ -31,6 +33,6 @@ module BubbleRuby
 
     private
 
-    attr_accessor :endpoint, :schema
+    attr_writer :endpoint, :schema
   end
 end

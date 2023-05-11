@@ -9,9 +9,9 @@ module BubbleRuby
       extend self
 
       def call(endpoint:)
-        response = Fetch.call(endpoint: endpoint)
+        response    = Fetch.call(endpoint: endpoint)
         table_names = extract_table_names(response)
-        tables = table_names.map { |name| DB::Schema::Table.new(name: name) }
+        tables      = table_names.map { |name| DB::Schema::Table.new(name: name) }
         write_table_body(response, table_names, tables)
         tables
       end
