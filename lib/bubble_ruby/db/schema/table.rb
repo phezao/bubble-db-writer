@@ -12,8 +12,8 @@ module BubbleRuby
       self.body = body
     end
 
-    def create
-      Create.call(self)
+    def create_query
+      CreateQuery.call(self)
     end
   end
 end

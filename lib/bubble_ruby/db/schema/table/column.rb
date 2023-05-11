@@ -2,8 +2,8 @@
 
 module BubbleRuby
   class DB::Schema::Table::Column
-    require_relative 'column/create'
-    require_relative 'column/check'
+    require_relative 'column/create_query'
+    require_relative 'column/check_query'
 
     Type = lambda do |value|
       return 'JSON'        if value.keys.include?('$ref')
@@ -22,8 +22,8 @@ module BubbleRuby
       self.type       = Type[type]
     end
 
-    def create
-      Create.call(self)
+    def create_query
+      CreateQuery.call(self)
     end
 
     private
