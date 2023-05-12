@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'httparty'
+# require 'httparty'
 
 module BubbleRuby
-  module DB::Schema::Tables
+  class DB::Schema::Tables
     module Fetch
       def self.call(endpoint:)
         response = HTTParty.get(endpoint)
