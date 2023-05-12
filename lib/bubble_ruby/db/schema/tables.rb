@@ -1,13 +1,20 @@
 # frozen_string_literal: true
 
 module BubbleRuby
-  module DB::Schema::Tables
+  class DB::Schema::Tables
     require_relative 'tables/build'
-    require_relative 'tables/check'
+    require_relative 'tables/check_query'
     require_relative 'tables/fetch'
+    require_relative 'tables/response'
 
-    def self.new(endpoint:)
-      Build.call(endpoint: endpoint)
+    attr_accessor :collection
+
+    def initialize(endpoint:)
+      self.collection = Build.call(endpoint: endpoint)
+    end
+
+    def find_table(name:)
+      collection.find { |table| table.name == name }
     end
   end
 end
