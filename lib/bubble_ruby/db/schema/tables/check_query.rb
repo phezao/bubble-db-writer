@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module BubbleRuby
-  module DB::Schema::Tables
+  class DB::Schema::Tables
     module CheckQuery
       def self.call
         <<-SQL
