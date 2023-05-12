@@ -3,6 +3,7 @@
 module BubbleRuby
   class DB
     require_relative 'db/schema'
+    require_relative 'db/middleware'
 
     attr_reader :endpoint, :schema
 
