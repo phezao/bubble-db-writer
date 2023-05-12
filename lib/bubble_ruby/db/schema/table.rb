@@ -3,7 +3,7 @@
 module BubbleRuby
   class DB::Schema::Table
     require_relative 'table/column'
-    require_relative 'table/create'
+    require_relative 'table/create_query'
 
     attr_accessor :name, :body
 
