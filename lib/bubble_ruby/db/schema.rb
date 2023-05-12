@@ -3,7 +3,10 @@
 module BubbleRuby
   class DB::Schema
     require_relative 'schema/tables'
+    require_relative 'schema/table'
     require_relative 'schema/migrate'
+
+    attr_accessor :tables, :middleware
 
     def initialize(endpoint:)
       self.tables     = Tables.new(endpoint: endpoint)
@@ -21,9 +24,5 @@ module BubbleRuby
     def migrate
       Migrate.call(self, middleware)
     end
-
-    private
-
-    attr_accessor :tables
   end
 end
