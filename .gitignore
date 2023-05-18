@@ -6,7 +6,7 @@
 schemas
 
 schema.json
-schema.rb
+dbschema.rb
 
 bin/dump-test-db
 bin/restore-prod-db-from-dump
