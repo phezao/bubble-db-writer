@@ -3,7 +3,7 @@
 require 'spec_helper'
 require_relative '../../../../../../lib/bubble_ruby'
 
-RSpec.describe 'BubbleRuby::DB::Schema::Table::Column::CreateQuery' do
+RSpec.describe BubbleRuby::DB::Schema::Table::Column::CreateQuery do
   describe '.call' do
     context 'when a table_column object is passed' do
       it 'returns an SQL query to create the columns of the table' do

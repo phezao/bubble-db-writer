@@ -2,20 +2,16 @@
 
 module BubbleRuby
   module DB::Record::UpdateQuery
-    def self.call(table_name, column_name, column_value, bubble_id, bubble_data_type)
-      if bubble_data_type.is_a?(Hash)
-        <<-SQL
-          UPDATE \"#{table_name}\"
-          SET \"#{column_name}\" = #{column_value}
-          WHERE bubble_id = \'#{bubble_id}\'
-        SQL
-      else
-        <<-SQL
-          UPDATE \"#{table_name}\"
-          SET \"#{column_name}\" = \'#{column_value}\'
-          WHERE bubble_id = \'#{bubble_id}\'
-        SQL
-      end
+    def self.call(record)
+      record.is_a?(DB::Record) or raise TypeError
+
+      value = record.bubble_data_type.is_a?(Hash) ? record.column_value : "\'#{record.column_value}\""
+
+      <<-SQL
+        UPDATE \"#{record.table_name}\"
+        SET \"#{record.column_name}\" = #{value}
+        WHERE bubble_id = \'#{record.bubble_id}\'
+      SQL
     end
   end
 end

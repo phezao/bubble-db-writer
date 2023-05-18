@@ -3,7 +3,7 @@
 require 'spec_helper'
 require_relative '../../../../../../lib/bubble_ruby'
 
-RSpec.describe 'BubbleRuby::DB::Schema::Table::Column::CheckQuery' do
+RSpec.describe BubbleRuby::DB::Schema::Table::Column::CheckQuery do
   describe '.call' do
     context 'when a table object is passed' do
       it 'returns an SQL query to check the columns of the table' do

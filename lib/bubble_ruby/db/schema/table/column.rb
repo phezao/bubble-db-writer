@@ -7,6 +7,7 @@ module BubbleRuby
       require_relative 'column/check_query'
 
       Type = lambda do |value|
+        value.is_a?(Hash) or raise TypeError, 'Não é um hash'
         return 'JSON'        if value.keys.include?('$ref')
         return 'TIMESTAMPTZ' if value.keys.include?('format') && value['format'] == 'date-time'
         return 'TEXT'        if value['type'] == 'string' || value['type'] == 'option set'

@@ -9,7 +9,7 @@ module BubbleRuby
         schema.is_a?(Schema) or raise TypeError
         middleware.is_a?(Middleware) or raise TypeError
 
-        pg_table_names = middleware.execute(Schema::Tables::CheckQuery.call).column_values(0)
+        pg_table_names = middleware.execute(DB::Schema::Tables::CheckQuery.call).column_values(0)
         schema.tables.each do |table|
           return middleware.execute(table.create_query) unless pg_table_names.include?(table.name)
 
@@ -20,9 +20,9 @@ module BubbleRuby
       private
 
       def verify_table_columns(table)
-        pg_columns = middleware.execute(Schema::Table::Column::CheckQuery.call(table)).column_values(3)
+        pg_columns = middleware.execute(DB::Schema::Table::Column::CheckQuery.call(table)).column_values(3)
         table.body.each do |table_column|
-          table_column.create_query unless pg_columns.include?(table_column.name)
+          middleware.execute(table_column.create_query) unless pg_columns.include?(table_column.name)
         end
       end
     end
