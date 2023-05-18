@@ -7,8 +7,8 @@ module BubbleRuby
 
     attr_reader :endpoint, :schema
 
-    def initialize(swagger_endpoint:)
-      self.endpoint = swagger_endpoint
+    def initialize
+      self.endpoint = ENV['BUBBLE_SWAGGER_DOC_ENDPOINT']
       self.schema   = nil
     end
 
@@ -22,14 +22,6 @@ module BubbleRuby
       !schema.nil? or raise StandardError, 'Schema not yet created or imported, run #create'
 
       schema.migrate
-    end
-
-    def seed
-      # populate the db with all data
-    end
-
-    def update_records
-      # update all records from db
     end
 
     private

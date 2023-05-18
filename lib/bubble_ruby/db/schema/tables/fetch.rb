@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# require 'httparty'
+require 'httparty'
 
 module BubbleRuby
   class DB::Schema::Tables
